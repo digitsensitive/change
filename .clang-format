@@ -1,0 +1,24 @@
+---
+Language: C
+BasedOnStyle: Google
+BraceWrapping:
+  AfterClass: false
+  AfterControlStatement: "Never"
+  AfterEnum: false
+  AfterFunction: true
+  AfterNamespace: true
+  AfterObjCDeclaration: false
+  AfterStruct: false
+  AfterUnion: false
+  AfterExternBlock: false
+  BeforeCatch: false
+  BeforeElse: false
+  IndentBraces: false
+  SplitEmptyFunction: true
+  SplitEmptyRecord: true
+  SplitEmptyNamespace: true
+BreakBeforeBraces: Custom
+ColumnLimit: 80
+IndentWidth: 8
+PointerAlignment: Right
+TabWidth: 8
