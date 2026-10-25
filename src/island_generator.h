@@ -12,6 +12,7 @@ typedef enum  {
 typedef struct Tile {
     Vec2_t position;
     TileColor color;
+    int is_walkable;
 } Tile_t;
 
 typedef struct Island {

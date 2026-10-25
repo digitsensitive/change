@@ -22,8 +22,8 @@ void player_render(Player_t *player)
 void player_input(Player_t *player, Island_t *island, Vector2 mouse_pos)
 {
         if (IsMouseButtonDown(MOUSE_LEFT_BUTTON)) {
-                player->position.x = mouse_pos.x;
-                player->position.y = mouse_pos.y;
+                player->position.x = mouse_pos.x / player->size;
+                player->position.y = mouse_pos.y / player->size;
         }
 }
 

@@ -40,6 +40,7 @@ static void island_generate(Island_t *island)
                 island->tiles[i].color = TILE_COLOR_BLUE;
                 island->tiles[i].position.x = i % island->width;
                 island->tiles[i].position.y = i / island->width;
+                island->tiles[i].is_walkable = 0;
         }
 
         /* start building the island */
@@ -97,7 +98,7 @@ static void island_generate(Island_t *island)
                 if (new_tile->color == TILE_COLOR_GREEN) continue;
 
                 new_tile->color = TILE_COLOR_GREEN;
-
+                new_tile->is_walkable = 1;
                 grass_tiles[grass_tiles_counter] =
                     get_tile_id(island->width, new_position);
 
@@ -163,10 +164,10 @@ unsigned int get_tile_id(unsigned int island_width, Vec2_t position)
 
 int is_walkable(Island_t *island, Vec2_t position)
 {
-        if (get_tile(island, position)->color == TILE_COLOR_BLUE) {
-                return 0;
+        if (get_tile(island, position)->is_walkable) {
+                return 1;
         }
-        return 1;
+        return 0;
 }
 
 int is_on_map(Island_t *island, Vec2_t position)
