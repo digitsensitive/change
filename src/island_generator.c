@@ -8,8 +8,7 @@
 
 static void island_generate(Island_t *island);
 
-Island_t *island_create(unsigned int seed, unsigned int width,
-                        unsigned int height, unsigned int tile_size)
+Island_t *island_create(uint seed, uint width, uint height, uint tile_size)
 {
         /* allocate memory for the island */
         Island_t *island = (Island_t *)malloc(sizeof(Island_t));
@@ -36,7 +35,7 @@ Island_t *island_create(unsigned int seed, unsigned int width,
 static void island_generate(Island_t *island)
 {
         /* make all tiles first water */
-        for (unsigned int i = 0; i < island->number_tiles; i++) {
+        for (uint i = 0; i < island->number_tiles; i++) {
                 island->tiles[i].color = TILE_COLOR_BLUE;
                 island->tiles[i].position.x = i % island->width;
                 island->tiles[i].position.y = i / island->width;
@@ -44,16 +43,15 @@ static void island_generate(Island_t *island)
         }
 
         /* start building the island */
-        unsigned int grass_tiles_counter = 0;
-        unsigned int grass_tiles[MAX_GRASS_TILES];
+        uint grass_tiles_counter = 0;
+        uint grass_tiles[MAX_GRASS_TILES];
 
         /* set the first grass tile in the center */
-        Vec2_t center = {island->width / 2, island->height / 2};
-        island->player_starting_position = (Vec2_t){center.x, center.y};
-        get_tile(island, (Vec2_t){center.x, center.y})->color =
+        Vector2 center = {island->width / 2, island->height / 2};
+        get_tile(island, (Vector2){center.x, center.y})->color =
             TILE_COLOR_GREEN;
         grass_tiles[grass_tiles_counter] =
-            get_tile_id(island->width, (Vec2_t){center.x, center.y});
+            get_tile_id(island->width, (Vector2){center.x, center.y});
         grass_tiles_counter++;
 
         /* create the island itself */
@@ -63,12 +61,12 @@ static void island_generate(Island_t *island)
 
                 Tile_t *tile = &island->tiles[random_tile_id];
 
-                unsigned int x = tile->position.x;
-                unsigned int y = tile->position.y;
+                int x = tile->position.x;
+                int y = tile->position.y;
 
-                unsigned int direction = GetRandomValue(0, 3);
+                uint direction = GetRandomValue(0, 3);
 
-                Vec2_t new_position = {x, y};
+                Vector2 new_position = {x, y};
 
                 switch (direction) {
                         case 0:  // up
@@ -106,10 +104,10 @@ static void island_generate(Island_t *island)
         }
 
         /* create sand surroundings */
-        unsigned int tile_ids[8] = {0};
-        for (int y = 0; y < island->height; y++) {
-                for (int x = 0; x < island->width; x++) {
-                        Vec2_t pos = (Vec2_t){x, y};
+        uint tile_ids[8] = {0};
+        for (uint y = 0; y < island->height; y++) {
+                for (uint x = 0; x < island->width; x++) {
+                        Vector2 pos = (Vector2){x, y};
                         if (is_walkable(island, pos)) {
                                 get_surroundings(island, pos, tile_ids);
                                 for (int i = 0; i < 8; i++) {
@@ -127,9 +125,9 @@ static void island_generate(Island_t *island)
 
 void island_render(Island_t *island)
 {
-        for (unsigned int y = 0; y < island->height; y++) {
-                for (unsigned int x = 0; x < island->width; x++) {
-                        Tile_t *tile = get_tile(island, (Vec2_t){x, y});
+        for (uint y = 0; y < island->height; y++) {
+                for (uint x = 0; x < island->width; x++) {
+                        Tile_t *tile = get_tile(island, (Vector2){x, y});
                         Color tile_color;
                         switch (tile->color) {
                                 case TILE_COLOR_GREEN:
@@ -152,17 +150,18 @@ void island_render(Island_t *island)
 void island_destroy(Island_t *island) { free(island); }
 
 /* tiles */
-Tile_t *get_tile(Island_t *island, Vec2_t position)
+Tile_t *get_tile(Island_t *island, Vector2 position)
 {
-        return &island->tiles[position.y * island->width + position.x];
+        return &island
+                    ->tiles[(int)position.y * island->width + (int)position.x];
 }
 
-unsigned int get_tile_id(unsigned int island_width, Vec2_t position)
+unsigned int get_tile_id(uint island_width, Vector2 position)
 {
         return position.y * island_width + position.x;
 }
 
-int is_walkable(Island_t *island, Vec2_t position)
+int is_walkable(Island_t *island, Vector2 position)
 {
         if (get_tile(island, position)->is_walkable) {
                 return 1;
@@ -170,7 +169,7 @@ int is_walkable(Island_t *island, Vec2_t position)
         return 0;
 }
 
-int is_on_map(Island_t *island, Vec2_t position)
+int is_on_map(Island_t *island, Vector2 position)
 {
         if (position.x < 0 || position.x > island->width || position.y < 0 ||
             position.y > island->height) {
@@ -179,14 +178,13 @@ int is_on_map(Island_t *island, Vec2_t position)
         return 1;
 }
 
-void get_surroundings(Island_t *island, Vec2_t position,
-                      unsigned int tile_ids[8])
+void get_surroundings(Island_t *island, Vector2 position, uint tile_ids[8])
 {
         int i = 0;
         for (int y = -1; y < 2; y++) {
                 for (int x = -1; x < 2; x++) {
-                        Vec2_t pos = (Vec2_t){position.x + x, position.y + y};
-                        if (is_on_map(island, (Vec2_t){pos.x, pos.y})) {
+                        Vector2 pos = (Vector2){position.x + x, position.y + y};
+                        if (is_on_map(island, (Vector2){pos.x, pos.y})) {
                                 tile_ids[i] = get_tile_id(island->width, pos);
                                 i++;
                         }

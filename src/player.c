@@ -6,7 +6,7 @@ Player_t *player_create(Island_t *island, unsigned int size)
 {
         Player_t *player = (Player_t *)malloc(sizeof(Player_t));
         if (!player) return NULL;
-        player->position = island->player_starting_position;
+        player->position = (Vector2){30, 30};
         player->size = size;
 
         return player;
@@ -22,8 +22,12 @@ void player_render(Player_t *player)
 void player_input(Player_t *player, Island_t *island, Vector2 mouse_pos)
 {
         if (IsMouseButtonDown(MOUSE_LEFT_BUTTON)) {
-                player->position.x = mouse_pos.x / player->size;
-                player->position.y = mouse_pos.y / player->size;
+                if (is_walkable(island,
+                                (Vector2){mouse_pos.x / player->size,
+                                          mouse_pos.y / player->size})) {
+                        player->position.x = mouse_pos.x / player->size;
+                        player->position.y = mouse_pos.y / player->size;
+                }
         }
 }
 

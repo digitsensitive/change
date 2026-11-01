@@ -5,32 +5,32 @@
 #include "../include/raylib.h"
 #include "island_generator.h"
 #include "player.h"
+#include "textures.h"
+#include "weather.h"
 
 /* const variables */
 #define MAX_TITLE_LENGTH 256
 
 /* variables */
-typedef enum  {
-    SCENE_MENU,
-    SCENE_GAMEPLAY,
-    SCENE_GAME_OVER
-} SceneType;
+typedef enum { SCENE_MENU, SCENE_GAMEPLAY, SCENE_GAME_OVER } SceneType;
 
 typedef struct Debug {
-	int is_enabled;
-	int running_time;
+        int is_enabled;
+        int running_time;
 } Debug_t;
 
 typedef struct Game {
-    unsigned int width;
-    unsigned int height;
-    unsigned int seed;
-    char title[MAX_TITLE_LENGTH];
-    SceneType scene;
-    Island_t *island;
-    Player_t *player;
-		Vector2 mouse_pos;
-		Debug_t debug;
+        unsigned int width;
+        unsigned int height;
+        unsigned int seed;
+        char title[MAX_TITLE_LENGTH];
+        SceneType scene;
+        TextureMgr_t *tm;
+        Island_t *island;
+        Player_t *player;
+        Weather_t *weather;
+        Vector2 mouse_pos;
+        Debug_t debug;
 } Game_t;
 
 /* functions */

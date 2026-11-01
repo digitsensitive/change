@@ -33,7 +33,7 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 format:
 	@echo "Formatting source and header files ..."
 	@find $(SRC_DIR) -type f -name "*.c" -exec clang-format -i {} \;
-	@find $(INC_DIR) -type f -name "*.h" -exec clang-format -i {} \;
+	@find $(SRC_DIR) -type f -name "*.h" -exec clang-format -i {} \;
 	@echo "Formatting complete!"
 
 # Create tmux session
@@ -47,7 +47,7 @@ tmux:
 		\
 		tmux send-keys -t "$(TITLE):editor.0" "nano ./src/*.h" C-m; \
 		tmux send-keys -t "$(TITLE):editor.1" "nano ./src/*.c CHANGELOG.md" C-m; \
-		tmux send-keys -t "$(TITLE):editor.2" "grep -A 1 "RLAPI" ./include/raylib.h | fzf" C-m; \
+		tmux send-keys -t "$(TITLE):editor.2" "grep "RLAPI" raylib.md | fzf" C-m; \
 		tmux send-keys -t "$(TITLE):editor.3" "clear" C-m; \
 		tmux clock-mode -t "$(TITLE):editor.4"; \
 		\
