@@ -4,13 +4,13 @@
 #include "shared.h"
 
 typedef struct TextureData {
-        char *name;
-        Texture2D texture;
+    char *name;
+    Texture2D texture;
 } TextureData_t;
 
 typedef struct TextureMgr {
-        TextureData_t *textures;
-        int textures_count;
+    TextureData_t *textures;
+    int textures_count;
 } TextureMgr_t;
 
 TextureMgr_t *tm_init();

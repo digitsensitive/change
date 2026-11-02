@@ -5,8 +5,8 @@
 #include "shared.h"
 
 typedef struct Player {
-        Vector2 position;
-        unsigned int size;
+    Vector2 position;
+    unsigned int size;
 } Player_t;
 
 Player_t *player_create(Island_t *island, unsigned int size);

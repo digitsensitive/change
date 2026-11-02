@@ -13,12 +13,17 @@
 ### Added
 
 - [x] Create Texture Manager *2026/11/01*
+- [x] Add content field for tiles *2026/11/02*
+- [x] Add a basic random spawn function for tile contents *2026/11/02*
+- [ ] Make the random spawn function for tile contents more flexible, so that
+  it works for different content types (f.e. STONES, TREES ...). It should be
+  easy to add any future contents
 - [ ] In the `tm_add` function strip out the full path, only need name
 - [ ] Add a `tm_draw` function that calls the `get_texture`
 
 ### Changed
 
-- [x] Add own typdef for unsigned int called `uint` *2026/11/01*
+- [x] Add own typedef for unsigned int called `uint` *2026/11/01*
 - [x] Refactor Island Generator *2026/11/01*
 
 ### Fixed
