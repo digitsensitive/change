@@ -24,8 +24,8 @@ void player_input(Player_t *player, Island_t *island, Vector2 mouse_pos)
     if (IsMouseButtonDown(MOUSE_LEFT_BUTTON)) {
         if (is_walkable(island, (Vector2){mouse_pos.x / player->size,
                                           mouse_pos.y / player->size})) {
-            player->position.x = mouse_pos.x / player->size;
-            player->position.y = mouse_pos.y / player->size;
+            player->position.x = (uint)mouse_pos.x / player->size;
+            player->position.y = (uint)mouse_pos.y / player->size;
         }
     }
 }
