@@ -15,9 +15,9 @@
 - [x] Create Texture Manager *2026/11/01*
 - [x] Add content field for tiles *2026/11/02*
 - [x] Add a basic random spawn function for tile contents *2026/11/02*
-- [ ] Make the random spawn function for tile contents more flexible, so that
+- [x] Make the random spawn function for tile contents more flexible, so that
   it works for different content types (f.e. STONES, TREES ...). It should be
-  easy to add any future contents
+  easy to add any future contents *2026/11/06*
 - [ ] In the `tm_add` function strip out the full path, only need name
 - [ ] Add a `tm_draw` function that calls the `get_texture`
 
@@ -29,3 +29,4 @@
 ### Fixed
 
 - [x] Fix path for header files when formatting via `make format` *2026/11/01*
+- [x] Fix player position after is mouse button down *2026/11/06*

@@ -5,7 +5,7 @@
 
 typedef enum { TILE_COLOR_GREEN, TILE_COLOR_YELLOW, TILE_COLOR_BLUE } TileColor;
 
-typedef enum { TILE_EMPTY, TILE_STONE, TILE_TREE } ContentType;
+typedef enum { TILE_EMPTY, TILE_STONE, TILE_TREE, TILE_COUNT } ContentType;
 
 typedef struct Tile {
     Vector2 position;

@@ -123,15 +123,32 @@ static void island_generate(Island_t *island)
     }
 
     /* add tile content randomly */
-    int stones = 0;
-    while (stones < MAX_STONES) {
+    int finished = 0;
+    uint contents[TILE_COUNT-1]= {
+    	5, /* stones */
+		4  /* trees */
+    };
+
+    while (!finished) {
         /* get a random tile */
         uint random_position = GetRandomValue(0, island->number_tiles);
         Tile_t *tile = get_tile_with_id(island, random_position);
 
         if (tile->is_walkable && tile->content == TILE_EMPTY) {
-            tile->content = TILE_STONE;
-            stones++;
+        	uint random_tile = GetRandomValue(1, TILE_COUNT-1);
+			if (contents[random_tile-1] > 0) {
+            	tile->content = (ContentType)random_tile;
+            	tile->is_walkable = 0;
+            	contents[random_tile-1]--;
+            }
+        }
+
+        for (int u = 0; u < TILE_COUNT - 1; u++) {
+			finished = 1;
+			if (contents[u] > 0) {
+				finished = 0;
+				break;
+			}
         }
     }
 }
@@ -170,7 +187,7 @@ void island_render(Island_t *island)
                 content_color = (Color){40, 40, 40, 255};
                 break;
             case TILE_TREE:
-                content_color = (Color){1, 230, 26, 255};
+                content_color = (Color){255, 0, 0, 255};
                 break;
         }
 
